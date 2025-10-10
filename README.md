@@ -1,4 +1,4 @@
-<h2 align="center">Joint Velocity-Growth Flow Matching for Single-Cell Dynamics Modeling (NeurIPS 2025)</h3>
+<h2 align="center">Joint Velocity-Growth Flow Matching for Single-Cell Dynamics Modeling (NeurIPS 2025)</h1>
 
 ## Introduction
 
@@ -29,7 +29,6 @@ conda activate VGFM
 cd path_to_VGFM
 pip install -r requirements.txt
 ```
-
 
 ## Tutorials
 

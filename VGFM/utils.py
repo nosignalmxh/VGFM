@@ -159,6 +159,8 @@ from tqdm import tqdm
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 import random
+import os
+import pickle
 
 ###############################preparation##############################################
 def set_seed(seed=42):
@@ -172,6 +174,37 @@ def set_seed(seed=42):
 
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.benchmark = False
+
+# --- Big batch ---
+def split_X_into_subsets(X_selected, n_parts=5, seed=42):
+    np.random.seed(seed)
+    split_X = []
+    for t_data in X_selected:
+        shuffled = np.random.permutation(t_data)
+        splits = np.array_split(shuffled, n_parts)
+        split_X.append(splits)
+    return [list(subset) for subset in zip(*split_X)]
+
+# --- cache UOT plan ---
+def compute_and_cache_uot_plans(X_subsets, t_train, reg, reg_m, cache_dir):
+    os.makedirs(cache_dir, exist_ok=True)
+    print("Caching UOT plans to:", cache_dir)
+    for i, X_sub in enumerate(X_subsets):
+        cache_file = os.path.join(cache_dir, f"uot_plan_subset_{i}.pkl")
+        if os.path.exists(cache_file):
+            print(f"Cache found for subset {i}, skipping...")
+            continue
+        print(f"Computing UOT plans for subset {i}...")
+        uot_plans = compute_uot_plans(X_sub, t_train, reg=reg, reg_m=reg_m, draw=False)
+        with open(cache_file, 'wb') as f:
+            pickle.dump(uot_plans, f)
+
+def load_cached_uot_plans(cache_dir, subset_idx):
+    cache_file = os.path.join(cache_dir, f"uot_plan_subset_{subset_idx}.pkl")
+    if not os.path.exists(cache_file):
+        raise FileNotFoundError(f"No cached UOT plan found for subset {subset_idx}")
+    with open(cache_file, 'rb') as f:
+        return pickle.load(f)
 
 def compute_uot_plans(X,t_train,reg=0.05,reg_m=[50, np.inf],draw=False, norm_cost=False):# X_selected
     uot_plans = []

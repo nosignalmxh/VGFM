@@ -49,7 +49,7 @@ def generate_points(
         data_t0=data_t0.float()
     print(type(data_t0))
     initial_state_energy = (data_t0, lnw0)
-    generated,generate_weights=odeint(ODEFunc2(model), initial_state_energy, time)
+    generated, generate_weights=odeint(ODEFunc2(model), initial_state_energy, time)
     if autoencoder is not None and recon:
         generated = autoencoder.decoder(generated)
     return to_np(generated) ,to_np(torch.exp(generate_weights))

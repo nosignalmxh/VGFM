@@ -90,6 +90,7 @@ def train(
     initial_size=None,
     best_model_path=None,
     stepsize=0.01,
+    n_big_batch=1
 ):
 
     steps = generate_steps(groups)
@@ -117,7 +118,7 @@ def train(
         # apply local loss
         if local_loss and not global_loss:
             i_mass=1
-            lnw0 = torch.log(torch.ones(sample_size[0],1) / (initial_size)).to(device) #torch.Size([n_sample_size, 1])
+            lnw0 = torch.log(torch.ones(sample_size[0],1) / (sample_size[0])).to(device) #torch.Size([n_sample_size, 1])
             data_t0 = sample(df, 0, size=sample_size, replace=sample_with_replacement, to_torch=True, use_cuda=use_cuda)
             data_t0.to(device)
             # print('sample size:',sample_size)
@@ -135,7 +136,7 @@ def train(
                 
                 #sampling, predicting, and evaluating the loss.
                 # sample data
-                size1=(df[df['samples']==t1].values.shape[0],)
+                size1=(np.round((1/n_big_batch)*(df[df['samples']==t1].values.shape[0])).astype(int),)
                 data_t1 = sample(df, t1, size=size1, replace=sample_with_replacement, to_torch=True, use_cuda=use_cuda)
                 data_t1.to(device)
                 time = torch.Tensor([t0, t1]).cuda() if use_cuda else torch.Tensor([t0, t1])

@@ -1,6 +1,4 @@
-
 <h1 align="center">Joint Velocity-Growth Flow Matching for Single-Cell Dynamics Modeling (NeurIPS 2025)</h1>
-
 
 ## Introduction
 
@@ -10,7 +8,7 @@ Learning the underlying dynamics of single cells from snapshot data has gained i
 
 ## How to use
 
-Follow the steps below to set up and run **VGFM** locally.
+Follow the steps below to set up and run VGFM locally.
 
 1. Clone this repository
 
@@ -32,6 +30,15 @@ cd path_to_VGFM
 pip install -r requirements.txt
 ```
 
+## Datasets
+
+All datasets used in this project are publicly available. The files in the `/data` directory have been uniformly processed and converted to CSV format for consistency and ease of use.
+
+For the 2000-dimensional pancreas dataset:
+
+- **Source**: Download `GSE132188_adata.h5ad.h5` from [NCBI GEO](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE132188)
+- **Preprocessing**: Follow the data processing pipeline in `notebooks/preprocess_pancreas.ipynb` to reproduce the formatted dataset.
+
 ## Tutorials
 
 We currently provide the following tutorials, which can be easily followed in the `notebooks` directory:
@@ -42,6 +49,7 @@ We currently provide the following tutorials, which can be easily followed in th
 - Mouse hematopoiesis
 - Hold-out experiments for EB 5D, CITE 5D, and CITE 50D
 - EB 50D
+- Pancreas 2000D dataset (gene space) and deeper analysis
 
 These notebooks demonstrate how to reproduce our main experiments and can serve as practical starting points for applying VGFM to new datasets.
 
@@ -63,3 +71,11 @@ year={2025},
 url={https://openreview.net/forum?id=aXAkNlbnGa}
 }
 ```
+
+## Acknowledgments
+
+This project has greatly benefited from the following open-source repositories. We extend our sincere gratitude to the authors and contributors for sharing their valuable work:
+
+- [DeepRUOT](https://github.com/zhenyiizhang/DeepRUOT)
+- [conditional-flow-matching](https://github.com/atong01/conditional-flow-matching)
+- [MIOFlow](https://github.com/KrishnaswamyLab/MIOFlow)

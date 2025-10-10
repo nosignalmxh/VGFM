@@ -1,0 +1,5 @@
+data/pancrease_2000d.csv
+results/pancreas_final/generated_final.npy
+results/pancreas_final/generated_pretrain.npy
+notebooks/tuning_params_pan.ipynb
+notebooks/params

@@ -1,6 +1,10 @@
 <h1 align="center">Joint Velocity-Growth Flow Matching for Single-Cell Dynamics Modeling (NeurIPS 2025)</h1>
 
+<div align="center">
+
 [![paper](https://img.shields.io/badge/arXiv-Paper-<COLOR>.svg)](https://arxiv.org/pdf/2505.13413)
+
+</div>
 
 ## Introduction
 
